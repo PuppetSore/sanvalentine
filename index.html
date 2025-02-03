@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Quieres ser mi San Valentín?</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #FDE7CF, #ffb3b3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+      flex-direction: column; /* Para que los elementos se apilen verticalmente */
+    }
+
+    h1 {
+      font-size: 3rem;
+      text-align: center;
+      color: #A62508;
+      text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
+      background-color: #F2F2F2;
+      padding: 1rem 2rem;
+      border-radius: 15px;
+      position: relative;
+      z-index: 2;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .flowers-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0; /* Flores debajo del texto y SVG */
+    }
+
+    .flower {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: url('golden.svg') no-repeat;
+      background-size: contain;
+      animation: floatFlowers 10s linear infinite;
+    }
+
+    @keyframes floatFlowers {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+
+    .background-flowers {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1; /* Flores de fondo debajo del SVG */
+    }
+
+    .background-flower {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: url('flower-svgrepo-com.svg') no-repeat;
+      background-size: contain;
+      opacity: 0.7;
+    }
+
+    /* Estilos para el contenedor del SVG */
+    .svg-container {
+      margin-top: 2rem;
+      background: transparent;
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      width: 90%;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      z-index: 3; /* Asegura que el SVG esté por encima de las flores */
+    }
+  
+    object {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>¿Quieres ser mi San Valentín?</h1>
+  <div class="flowers-container"></div>
+  <div class="background-flowers"></div>
+  <div class="svg-container" id="svgContainer"></div>
+
+  <script>
+    const flowerContainer = document.querySelector('.flowers-container');
+    const backgroundFlowerContainer = document.querySelector('.background-flowers');
+    const flowerCount = 50; // Número de flores que caerán
+    const backgroundFlowerCount = 100; // Flores de fondo
+
+    // Flores que caen
+    for (let i = 0; i < flowerCount; i++) {
+      const flower = document.createElement('div');
+      flower.classList.add('flower');
+      flower.style.left = `${Math.random() * 100}vw`;
+      flower.style.top = `${Math.random() * -100}vh`;
+      flower.style.animationDuration = `${Math.random() * 5 + 5}s`;
+      flower.style.animationDelay = `${Math.random() * 2}s`;
+      flowerContainer.appendChild(flower);
+    }
+
+    // Flores de fondo estáticas
+    for (let i = 0; i < backgroundFlowerCount; i++) {
+      const backgroundFlower = document.createElement('div');
+      backgroundFlower.classList.add('background-flower');
+      backgroundFlower.style.left = `${Math.random() * 100}vw`;
+      backgroundFlower.style.top = `${Math.random() * 100}vh`;
+      backgroundFlower.style.transform = `rotate(${Math.random() * 360}deg)`;
+      backgroundFlowerContainer.appendChild(backgroundFlower);
+    }
+
+    // Crear un elemento <object> para cargar el archivo SVG
+    const svgObject = document.createElement('object');
+    svgObject.data = 'rose.svg'; // Ruta del archivo .svg (asegúrate de que esté en el mismo directorio)
+    svgObject.type = 'image/svg+xml';
+    svgObject.style.width = '100%'; // Ajustar el ancho
+    svgObject.style.height = 'auto';
+  
+    // Agregar el SVG al contenedor
+    const svgContainer = document.getElementById('svgContainer');
+    svgContainer.appendChild(svgObject);
+  </script>
+</body>
+</html>
